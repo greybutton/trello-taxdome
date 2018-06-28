@@ -16,3 +16,12 @@ export const updateBoardStart = () => ({
 export const updateBoardCancel = () => ({
   type: types.UPDATE_BOARD_CANCEL,
 });
+
+export const updateColumnStart = column => ({
+  type: types.UPDATE_COLUMN_START,
+  payload: column,
+});
+
+export const updateColumnCancel = () => ({
+  type: types.UPDATE_COLUMN_CANCEL,
+});

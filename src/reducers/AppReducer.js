@@ -3,6 +3,10 @@ import * as types from '../constants/actionTypes';
 export const defaultState = {
   isBoardCreate: false,
   isBoardEdit: false,
+  isColumnEdit: {
+    isEdit: false,
+    column: {},
+  },
 };
 
 export default (state = defaultState, action = {}) => {
@@ -30,6 +34,25 @@ export default (state = defaultState, action = {}) => {
       return {
         ...state,
         isBoardEdit: false,
+      };
+    }
+    case types.UPDATE_COLUMN_START: {
+      return {
+        ...state,
+        isColumnEdit: {
+          isEdit: true,
+          column: action.payload,
+        },
+      };
+    }
+    case types.UPDATE_COLUMN_CANCEL:
+    case types.UPDATE_COLUMN_FULFILLED: {
+      return {
+        ...state,
+        isColumnEdit: {
+          isEdit: false,
+          column: {},
+        },
       };
     }
     default:

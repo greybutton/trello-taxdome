@@ -1,9 +1,11 @@
 import * as localStorage from './localStorage';
 
 const boardsUrl = 'boards';
+const columnsUrl = 'columns';
 
 const hash = () => (+new Date()).toString(36);
 
+// Boards
 export const getBoard = (id) => {
   const boards = JSON.parse(localStorage.getItem(boardsUrl));
   const board = boards.filter(item => item.id === id)[0];
@@ -44,4 +46,52 @@ export const deleteBoard = (id) => {
 export const getBoards = () => {
   const boards = JSON.parse(localStorage.getItem(boardsUrl)) || [];
   return boards;
+};
+
+// Columns
+export const createColumn = (item) => {
+  const column = {
+    id: hash(),
+    ...item,
+  };
+  const columns = JSON.parse(localStorage.getItem(columnsUrl)) || [];
+  const newColumns = columns.concat(column);
+  const value = JSON.stringify(newColumns);
+  localStorage.setItem(columnsUrl, value);
+  return column;
+};
+
+export const getColumn = (id) => {
+  const columns = JSON.parse(localStorage.getItem(columnsUrl));
+  const column = columns.filter(item => item.id === id)[0];
+  return column;
+};
+
+export const getColumns = (boardId) => {
+  const allColumns = JSON.parse(localStorage.getItem(columnsUrl)) || [];
+  const columns = allColumns.filter(column => column.boardId === boardId);
+  return columns;
+};
+
+export const updateColumn = (column) => {
+  const { id, boardId } = column;
+  const columns = JSON.parse(localStorage.getItem(columnsUrl));
+  const index = columns.findIndex(item => item.id === id);
+  const start = columns.slice(0, index);
+  const end = columns.slice(index + 1);
+  const newColumns = [...start, column, ...end];
+  const value = JSON.stringify(newColumns);
+  localStorage.setItem(columnsUrl, value);
+  const boardColumns = getColumns(boardId);
+  return boardColumns;
+};
+
+export const deleteColumn = (column) => {
+  const { id, boardId } = column;
+  const columns = JSON.parse(localStorage.getItem(columnsUrl));
+  const newColumns = columns.filter(item => item.id !== id);
+  const value = JSON.stringify(newColumns);
+  localStorage.setItem(columnsUrl, value);
+  const boardColumns = getColumns(boardId);
+  return boardColumns;
 };

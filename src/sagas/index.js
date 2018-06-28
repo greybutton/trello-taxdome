@@ -8,5 +8,10 @@ export default function* root() {
     fork(Watchers.watchUpdateBoard),
     fork(Watchers.watchDeleteBoard),
     fork(Watchers.watchGetBoards),
+    fork(Watchers.watchCreateColumn),
+    fork(Watchers.watchGetColumn),
+    fork(Watchers.watchUpdateColumn),
+    fork(Watchers.watchDeleteColumn),
+    fork(Watchers.watchGetColumns),
   ]);
 }
