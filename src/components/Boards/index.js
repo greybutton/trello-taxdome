@@ -7,7 +7,7 @@ const Boards = (props) => {
   return (
     <div className="boards">
       {boards.map(board => (
-        <div key={board.id}>
+        <div key={board.id} className="boards__item">
           <Link to={`/boards/${board.id}`}>
             {board.title}
           </Link>

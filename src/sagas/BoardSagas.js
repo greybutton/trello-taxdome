@@ -46,7 +46,7 @@ export function* deleteBoard({ payload }) {
 }
 
 export function* getBoards() {
-  yield put(BoardActions.getBoardPending());
+  yield put(BoardActions.getBoardsPending());
   try {
     const boards = yield call(api.getBoards);
     yield put(BoardActions.getBoardsFulfilled(boards));

@@ -8,6 +8,8 @@ import { SubmissionError } from 'redux-form';
 import * as BoardActions from '../../actions/BoardActions';
 import * as AppActions from '../../actions/AppActions';
 
+import Columns from '../Columns';
+
 import BoardFormEdit from '../../components/BoardFormEdit';
 
 class Board extends Component {
@@ -37,7 +39,7 @@ class Board extends Component {
     const { loading, board, history, isBoardEdit } = this.props;
 
     return (
-      <div>
+      <div className="board">
         <button type="button" onClick={() => history.goBack()}>
           Boards
         </button>
@@ -45,6 +47,7 @@ class Board extends Component {
         {isBoardEdit && (
           <BoardFormEdit board={board} loading={loading} onSubmit={this.handleSubmit} />
         )}
+        <Columns />
       </div>
     );
   }
@@ -65,14 +68,14 @@ const mapDispatchToProps = dispatch =>
     dispatch,
   );
 
-Board.propTypes = {
-  board: PropTypes.object,
-  isBoardEdit: PropTypes.bool.isRequired,
-};
-
 export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps,
   )(Board),
 );
+
+Board.propTypes = {
+  board: PropTypes.object,
+  isBoardEdit: PropTypes.bool.isRequired,
+};

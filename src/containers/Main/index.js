@@ -27,10 +27,6 @@ class Main extends Component {
       throw new SubmissionError(this.props.errors);
     });
 
-  renderField = ({ input, type, placeholder }) => (
-    <input {...input} id={input.name} placeholder={placeholder} type={type} autoFocus />
-  );
-
   render() {
     const { boards, isBoardCreate } = this.props;
 
