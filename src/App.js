@@ -1,29 +1,16 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { Switch, Route } from 'react-router-dom';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">
-            Welcome to React
-          </h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit
-          {' '}
-          <code>
-            src/App.js
-          </code>
-          {' '}
-          and save to reload.
-        </p>
-      </div>
-    );
-  }
-}
+import Main from './containers/Main';
+import Board from './containers/Board';
+
+const App = () => (
+  <div>
+    <Switch>
+      <Route exact path="/" component={Main} />
+      <Route exact path="/boards/:id" component={Board} />
+    </Switch>
+  </div>
+);
 
 export default App;
