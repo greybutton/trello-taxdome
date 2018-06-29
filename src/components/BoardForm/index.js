@@ -6,9 +6,11 @@ import { Field, reduxForm } from 'redux-form';
 
 import * as AppActions from '../../actions/AppActions';
 
+import Input from '../common/Input';
+
 class BoardForm extends Component {
   renderField = ({ input, type, placeholder }) => (
-    <input {...input} id={input.name} placeholder={placeholder} type={type} autoFocus />
+    <Input {...input} id={input.name} placeholder={placeholder} type={type} autoFocus />
   );
 
   render() {

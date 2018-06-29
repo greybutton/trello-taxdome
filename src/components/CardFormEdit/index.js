@@ -6,13 +6,15 @@ import { Field, reduxForm } from 'redux-form';
 
 import * as AppActions from '../../actions/AppActions';
 
+import Input from '../common/Input';
+
 class CardFormEdit extends Component {
   componentDidMount() {
     this.props.initialize(this.props.card);
   }
 
   renderField = ({ input, type, placeholder }) => (
-    <input {...input} id={input.name} placeholder={placeholder} type={type} autoFocus />
+    <Input {...input} id={input.name} placeholder={placeholder} type={type} autoFocus />
   );
 
   handleOnBlur = () => {

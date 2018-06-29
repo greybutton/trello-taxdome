@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 
+import Input from '../common/Input';
+
 class ColumnForm extends Component {
   renderField = ({ input, type, placeholder }) => (
-    <input {...input} id={input.name} placeholder={placeholder} type={type} />
+    <Input {...input} id={input.name} placeholder={placeholder} type={type} />
   );
 
   render() {

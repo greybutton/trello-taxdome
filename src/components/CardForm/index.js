@@ -5,9 +5,11 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import * as AppActions from '../../actions/AppActions';
 
+import Input from '../common/Input';
+
 class CardForm extends Component {
   renderField = ({ input, type, placeholder }) => (
-    <input {...input} id={input.name} placeholder={placeholder} type={type} autoFocus />
+    <Input {...input} id={input.name} placeholder={placeholder} type={type} autoFocus />
   );
 
   handleOnBlur = () => {
