@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { SubmissionError } from 'redux-form';
 import { DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
+import { default as TouchBackend } from 'react-dnd-touch-backend';
 
 import * as BoardActions from '../../actions/BoardActions';
 import * as ColumnActions from '../../actions/ColumnActions';
@@ -16,6 +16,8 @@ import Columns from '../Columns';
 
 import Button from '../../components/common/Button';
 import BoardFormEdit from '../../components/BoardFormEdit';
+
+import CardPreview from '../Card/CardPreview';
 
 class Board extends Component {
   componentDidMount() {
@@ -55,6 +57,7 @@ class Board extends Component {
           <BoardFormEdit board={board} loading={loading} onSubmit={this.handleSubmit} />
         )}
         <Columns />
+        <CardPreview />
       </div>
     );
   }
@@ -77,7 +80,18 @@ const mapDispatchToProps = dispatch =>
     dispatch,
   );
 
-export default DragDropContext(HTML5Backend)(
+const options = {
+  enableTouchEvents: true,
+  enableMouseEvents: true,
+  enableKeyboardEvents: true,
+  delayTouchStart: true,
+  delayMouseStart: true,
+  touchSlop: true,
+  ignoreContextMenu: true,
+  scrollAngleRanges: true,
+};
+
+export default DragDropContext(TouchBackend(options))(
   withRouter(
     connect(
       mapStateToProps,

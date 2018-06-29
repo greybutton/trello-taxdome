@@ -4,9 +4,19 @@
 }
 
 .card--hide {
-  opacity: 0;
+  opacity: 0.5;
 }
 
 .card--over {
   opacity: 0.5;
+  background: transparent;
+}
+
+.card--preview {
+  position: fixed;
+  pointer-events: none;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 200px;
 }
