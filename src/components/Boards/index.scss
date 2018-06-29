@@ -7,6 +7,7 @@
   .boards {
     display: flex;
     flex-direction: row;
+    flex-flow: wrap;
   }
 }
 
@@ -22,7 +23,6 @@
 @media (min-width: 576px) {
   .boards__item {
     width: 200px;
-    margin-bottom: 0;
     margin-right: 5px;
   }
 }
