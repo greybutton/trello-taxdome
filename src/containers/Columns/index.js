@@ -11,6 +11,8 @@ import ColumnForm from '../../components/ColumnForm';
 
 import Column from '../Column';
 
+import './index.css';
+
 class ColumnsContainer extends Component {
   handleSubmit = values => {
     const {

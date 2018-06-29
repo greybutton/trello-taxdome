@@ -4,11 +4,51 @@ import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { SubmissionError } from 'redux-form';
+import { DragSource, DropTarget } from 'react-dnd';
+import classNames from 'classnames';
+import { ItemTypes } from '../../constants/dnd';
+
+import * as observer from '../../observer';
 
 import * as CardActions from '../../actions/CardActions';
 import * as AppActions from '../../actions/AppActions';
 
 import CardFormEdit from '../../components/CardFormEdit';
+
+import './index.css';
+
+const cardSource = {
+  beginDrag(props) {
+    return props;
+  },
+};
+
+const collectSource = (connect, monitor) => {
+  return {
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging(),
+  };
+};
+
+const cardTarget = {
+  drop(props, monitor) {
+    const { index: dragIndex, card: dragCard } = monitor.getItem();
+    const { index: hoverIndex, card: hoverCard } = props;
+    if (dragCard.columnId === hoverCard.columnId && dragIndex !== hoverIndex) {
+      observer.sortCard(dragIndex, hoverIndex, dragCard, hoverCard);
+    }
+    if (dragCard.columnId !== hoverCard.columnId) {
+      observer.sortCardColumn(dragIndex, hoverIndex, dragCard, hoverCard);
+    }
+  },
+};
+
+const collectTarget = (connect, monitor) => {
+  return {
+    connectDropTarget: connect.dropTarget(),
+    isOver: monitor.isOver(),
+  };
+};
 
 class Card extends Component {
   handleEditCard = () => {
@@ -29,24 +69,39 @@ class Card extends Component {
     });
 
   render() {
-    const { card, isCardEdit } = this.props;
+    const {
+      card,
+      isCardEdit,
+      connectDragSource,
+      connectDropTarget,
+      isOver,
+      isDragging,
+    } = this.props;
 
-    return (
-      <div className="card">
-        {(!isCardEdit.isEdit || (isCardEdit.isEdit && isCardEdit.card.id !== card.id)) && (
-          <div>{card.title}</div>
-        )}
-        {isCardEdit.isEdit &&
-          isCardEdit.card.id === card.id && (
-            <CardFormEdit card={card} onSubmit={this.handleSubmit} />
+    const cardClass = classNames({
+      card: true,
+      'card--hide': isDragging,
+      'card--over': isOver,
+    });
+
+    return connectDragSource(
+      connectDropTarget(
+        <div className={cardClass}>
+          {(!isCardEdit.isEdit || (isCardEdit.isEdit && isCardEdit.card.id !== card.id)) && (
+            <div>{card.title}</div>
           )}
-        <button type="button" onClick={this.handleEditCard}>
-          edit
-        </button>
-        <button type="button" onClick={this.handleDeleteCard}>
-          delete
-        </button>
-      </div>
+          {isCardEdit.isEdit &&
+            isCardEdit.card.id === card.id && (
+              <CardFormEdit card={card} onSubmit={this.handleSubmit} />
+            )}
+          <button type="button" onClick={this.handleEditCard}>
+            edit
+          </button>
+          <button type="button" onClick={this.handleDeleteCard}>
+            delete
+          </button>
+        </div>,
+      ),
     );
   }
 }
@@ -64,11 +119,15 @@ const mapDispatchToProps = dispatch =>
     dispatch,
   );
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps,
-  )(Card),
+export default DropTarget(ItemTypes.CARD, cardTarget, collectTarget)(
+  DragSource(ItemTypes.CARD, cardSource, collectSource)(
+    withRouter(
+      connect(
+        mapStateToProps,
+        mapDispatchToProps,
+      )(Card),
+    ),
+  ),
 );
 
 Card.propTypes = {

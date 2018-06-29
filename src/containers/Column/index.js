@@ -4,6 +4,10 @@ import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { SubmissionError } from 'redux-form';
+import { DropTarget } from 'react-dnd';
+import { ItemTypes } from '../../constants/dnd';
+
+import * as observer from '../../observer';
 
 import * as ColumnActions from '../../actions/ColumnActions';
 import * as AppActions from '../../actions/AppActions';
@@ -11,6 +15,24 @@ import * as AppActions from '../../actions/AppActions';
 import ColumnFormEdit from '../../components/ColumnFormEdit';
 
 import Cards from '../Cards';
+
+import './index.css';
+
+const columnTarget = {
+  drop(props, monitor) {
+    const { column } = props;
+    const { card } = monitor.getItem();
+    if (column.id !== card.columnId) {
+      observer.moveCard(column, card);
+    }
+  },
+};
+
+const collect = (connect, monitor) => {
+  return {
+    connectDropTarget: connect.dropTarget(),
+  };
+};
 
 class Column extends Component {
   handleEditColumn = () => {
@@ -26,9 +48,9 @@ class Column extends Component {
     });
 
   render() {
-    const { column, deleteColumn, isColumnEdit } = this.props;
+    const { column, deleteColumn, isColumnEdit, connectDropTarget } = this.props;
 
-    return (
+    return connectDropTarget(
       <div className="column">
         {(!isColumnEdit.isEdit ||
           (isColumnEdit.isEdit && isColumnEdit.column.id !== column.id)) && (
@@ -42,7 +64,7 @@ class Column extends Component {
           delete
         </button>
         <Cards columnId={column.id} />
-      </div>
+      </div>,
     );
   }
 }
@@ -60,11 +82,13 @@ const mapDispatchToProps = dispatch =>
     dispatch,
   );
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps,
-  )(Column),
+export default DropTarget(ItemTypes.CARD, columnTarget, collect)(
+  withRouter(
+    connect(
+      mapStateToProps,
+      mapDispatchToProps,
+    )(Column),
+  ),
 );
 
 Column.propTypes = {

@@ -10,7 +10,7 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-const store = configureStore();
+export const store = configureStore(); // eslint-disable-line
 store.runSaga(rootSaga);
 
 ReactDOM.render(

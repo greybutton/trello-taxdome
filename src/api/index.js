@@ -161,3 +161,59 @@ export const deleteCard = (card) => {
   const boardCards = getCards(boardId);
   return boardCards;
 };
+
+// Drag and Drop
+export const movingCard = (column, card) => {
+  const { id } = column;
+  const newCard = {
+    ...card,
+    columnId: id,
+  };
+  updateCard(newCard);
+};
+
+export const sortingCard = (dragIndex, hoverIndex, dragCard, hoverCard) => {
+  const { columnId } = dragCard;
+  const cards = JSON.parse(localStorage.getItem(cardsUrl));
+  const columnCards = cards.filter(card => card.columnId === columnId);
+  const otherCards = cards.filter(card => card.columnId !== columnId);
+  if (hoverIndex > dragIndex) {
+    const start = columnCards.slice(0, dragIndex);
+    const rest = columnCards.slice(dragIndex, hoverIndex + 1);
+    const end = columnCards.slice(hoverIndex + 1);
+    const restWithoutDragCard = rest.filter(card => card.id !== dragCard.id);
+    const newRest = [...restWithoutDragCard, dragCard];
+    const newColumnCards = [...start, ...newRest, ...end];
+    const value = JSON.stringify([...newColumnCards, ...otherCards]);
+    localStorage.setItem(cardsUrl, value);
+  }
+  if (dragIndex > hoverIndex) {
+    const start = columnCards.slice(0, hoverIndex);
+    const rest = columnCards.slice(hoverIndex, dragIndex + 1);
+    const end = columnCards.slice(dragIndex + 1);
+    const restWithoutDragCard = rest.filter(card => card.id !== dragCard.id);
+    const newRest = [dragCard, ...restWithoutDragCard];
+    const newColumnCards = [...start, ...newRest, ...end];
+    const value = JSON.stringify([...newColumnCards, ...otherCards]);
+    localStorage.setItem(cardsUrl, value);
+  }
+};
+
+export const sortingCardColumn = (dragIndex, hoverIndex, dragCard, hoverCard) => {
+  const { columnId } = hoverCard;
+  const cards = JSON.parse(localStorage.getItem(cardsUrl));
+  const columnCards = cards.filter(card => card.columnId === columnId);
+  const otherCards = cards
+    .filter(card => card.columnId !== columnId)
+    .filter(card => card.id !== dragCard.id);
+  const newDragCard = {
+    ...dragCard,
+    columnId,
+  };
+  const start = columnCards.slice(0, hoverIndex);
+  const end = columnCards.slice(hoverIndex);
+  const newCards = [...start, newDragCard, ...end];
+  const value = JSON.stringify([...newCards, ...otherCards]);
+  localStorage.setItem(cardsUrl, value);
+};
+

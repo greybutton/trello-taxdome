@@ -4,6 +4,8 @@ import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { SubmissionError } from 'redux-form';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
 import * as BoardActions from '../../actions/BoardActions';
 import * as ColumnActions from '../../actions/ColumnActions';
@@ -76,11 +78,13 @@ const mapDispatchToProps = dispatch =>
     dispatch,
   );
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps,
-  )(Board),
+export default DragDropContext(HTML5Backend)(
+  withRouter(
+    connect(
+      mapStateToProps,
+      mapDispatchToProps,
+    )(Board),
+  ),
 );
 
 Board.propTypes = {
