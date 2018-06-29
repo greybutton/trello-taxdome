@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import './index.css';
 
 const button = (props) => {
-  const { text, onClick } = props;
+  const { text } = props;
   return (
-    <button className="button" type="button" onClick={() => onClick()}>
+    <button className="button" type="button" {...props}>
       {text}
     </button>
   );
