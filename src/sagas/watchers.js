@@ -2,6 +2,7 @@ import { takeLatest } from 'redux-saga/effects';
 import * as types from '../constants/actionTypes';
 import * as BoardSagas from './BoardSagas';
 import * as ColumnSagas from './ColumnSagas';
+import * as CardSagas from './CardSagas';
 
 // Board
 export function* watchCreateBoard() {
@@ -43,4 +44,25 @@ export function* watchDeleteColumn() {
 
 export function* watchGetColumns() {
   yield takeLatest(types.GET_COLUMNS, ColumnSagas.getColumns);
+}
+
+// Card
+export function* watchCreateCard() {
+  yield takeLatest(types.CREATE_CARD, CardSagas.createCard);
+}
+
+export function* watchGetCard() {
+  yield takeLatest(types.GET_CARD, CardSagas.getCard);
+}
+
+export function* watchUpdateCard() {
+  yield takeLatest(types.UPDATE_CARD, CardSagas.updateCard);
+}
+
+export function* watchDeleteCard() {
+  yield takeLatest(types.DELETE_CARD, CardSagas.deleteCard);
+}
+
+export function* watchGetCards() {
+  yield takeLatest(types.GET_CARDS, CardSagas.getCards);
 }

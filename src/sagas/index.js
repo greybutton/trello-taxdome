@@ -13,5 +13,10 @@ export default function* root() {
     fork(Watchers.watchUpdateColumn),
     fork(Watchers.watchDeleteColumn),
     fork(Watchers.watchGetColumns),
+    fork(Watchers.watchCreateCard),
+    fork(Watchers.watchGetCard),
+    fork(Watchers.watchUpdateCard),
+    fork(Watchers.watchDeleteCard),
+    fork(Watchers.watchGetCards),
   ]);
 }

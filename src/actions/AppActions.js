@@ -1,8 +1,7 @@
 import * as types from '../constants/actionTypes';
 
-export const createBoardStart = columnId => ({
+export const createBoardStart = () => ({
   type: types.CREATE_BOARD_START,
-  payload: columnId,
 });
 
 export const createBoardCancel = () => ({
@@ -24,4 +23,22 @@ export const updateColumnStart = column => ({
 
 export const updateColumnCancel = () => ({
   type: types.UPDATE_COLUMN_CANCEL,
+});
+
+export const createCardStart = columnId => ({
+  type: types.CREATE_CARD_START,
+  payload: columnId,
+});
+
+export const createCardCancel = () => ({
+  type: types.CREATE_CARD_CANCEL,
+});
+
+export const updateCardStart = card => ({
+  type: types.UPDATE_CARD_START,
+  payload: card,
+});
+
+export const updateCardCancel = () => ({
+  type: types.UPDATE_CARD_CANCEL,
 });

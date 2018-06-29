@@ -10,19 +10,20 @@ import * as AppActions from '../../actions/AppActions';
 
 import ColumnFormEdit from '../../components/ColumnFormEdit';
 
+import Cards from '../Cards';
+
 class Column extends Component {
   handleEditColumn = () => {
     const { column } = this.props;
     this.props.updateColumnStart(column);
   };
 
-  handleSubmit = column => {
-    return new Promise((resolve, reject) => {
+  handleSubmit = column =>
+    new Promise((resolve, reject) => {
       this.props.updateColumn({ column, resolve, reject });
     }).catch(() => {
       throw new SubmissionError(this.props.errors);
     });
-  };
 
   render() {
     const { column, deleteColumn, isColumnEdit } = this.props;
@@ -40,6 +41,7 @@ class Column extends Component {
         <button type="button" onClick={() => deleteColumn(column)}>
           delete
         </button>
+        <Cards columnId={column.id} />
       </div>
     );
   }

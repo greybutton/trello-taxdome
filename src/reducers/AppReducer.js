@@ -7,6 +7,14 @@ export const defaultState = {
     isEdit: false,
     column: {},
   },
+  isCardCreate: {
+    isCreate: false,
+    columnId: null,
+  },
+  isCardEdit: {
+    isEdit: false,
+    card: {},
+  },
 };
 
 export default (state = defaultState, action = {}) => {
@@ -52,6 +60,43 @@ export default (state = defaultState, action = {}) => {
         isColumnEdit: {
           isEdit: false,
           column: {},
+        },
+      };
+    }
+    case types.CREATE_CARD_START: {
+      return {
+        ...state,
+        isCardCreate: {
+          isCreate: true,
+          columnId: action.payload,
+        },
+      };
+    }
+    case types.CREATE_CARD_CANCEL: {
+      return {
+        ...state,
+        isCardCreate: {
+          isCreate: false,
+          columnId: null,
+        },
+      };
+    }
+    case types.UPDATE_CARD_START: {
+      return {
+        ...state,
+        isCardEdit: {
+          isEdit: true,
+          card: action.payload,
+        },
+      };
+    }
+    case types.UPDATE_CARD_CANCEL:
+    case types.UPDATE_CARD_FULFILLED: {
+      return {
+        ...state,
+        isCardEdit: {
+          isEdit: false,
+          card: {},
         },
       };
     }

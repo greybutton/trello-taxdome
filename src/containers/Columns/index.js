@@ -12,16 +12,6 @@ import ColumnForm from '../../components/ColumnForm';
 import Column from '../Column';
 
 class ColumnsContainer extends Component {
-  componentDidMount() {
-    const {
-      match: {
-        params: { id: boardId },
-      },
-      getColumns,
-    } = this.props;
-    getColumns(boardId);
-  }
-
   handleSubmit = values => {
     const {
       match: {

@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import { SubmissionError } from 'redux-form';
 
 import * as BoardActions from '../../actions/BoardActions';
+import * as ColumnActions from '../../actions/ColumnActions';
+import * as CardActions from '../../actions/CardActions';
 import * as AppActions from '../../actions/AppActions';
 
 import Columns from '../Columns';
@@ -19,8 +21,12 @@ class Board extends Component {
         params: { id },
       },
       getBoard,
+      getColumns,
+      getCards,
     } = this.props;
     getBoard(id);
+    getColumns(id);
+    getCards(id);
   }
 
   handleEditBoard = () => {
@@ -62,8 +68,10 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      ...BoardActions,
       ...AppActions,
+      ...BoardActions,
+      ...ColumnActions,
+      ...CardActions,
     },
     dispatch,
   );
