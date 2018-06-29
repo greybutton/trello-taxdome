@@ -13,6 +13,7 @@ import * as observer from '../../observer';
 import * as CardActions from '../../actions/CardActions';
 import * as AppActions from '../../actions/AppActions';
 
+import Button from '../../components/common/Button';
 import CardFormEdit from '../../components/CardFormEdit';
 
 import './index.css';
@@ -94,12 +95,8 @@ class Card extends Component {
             isCardEdit.card.id === card.id && (
               <CardFormEdit card={card} onSubmit={this.handleSubmit} />
             )}
-          <button type="button" onClick={this.handleEditCard}>
-            edit
-          </button>
-          <button type="button" onClick={this.handleDeleteCard}>
-            delete
-          </button>
+          <Button text="edit" onClick={this.handleEditCard} />
+          <Button text="delete" onClick={this.handleDeleteCard} />
         </div>,
       ),
     );

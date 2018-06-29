@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
+import Button from '../common/Button';
+
 import './index.css';
 
 const Boards = (props) => {
@@ -13,9 +15,7 @@ const Boards = (props) => {
           <Link to={`/boards/${board.id}`} className="board__link">
             {board.title}
           </Link>
-          <button type="button" onClick={() => deleteBoard(board.id)}>
-            delete
-          </button>
+          <Button text="delete" onClick={() => deleteBoard(board.id)} />
         </div>
       ))}
     </div>

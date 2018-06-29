@@ -14,6 +14,7 @@ import * as AppActions from '../../actions/AppActions';
 
 import Columns from '../Columns';
 
+import Button from '../../components/common/Button';
 import BoardFormEdit from '../../components/BoardFormEdit';
 
 class Board extends Component {
@@ -48,9 +49,7 @@ class Board extends Component {
 
     return (
       <div className="board">
-        <button type="button" onClick={() => history.goBack()}>
-          Boards
-        </button>
+        <Button text="Boards" onClick={() => history.goBack()} />
         {!isBoardEdit && <div onClick={this.handleEditBoard}>{board.title}</div>}
         {isBoardEdit && (
           <BoardFormEdit board={board} loading={loading} onSubmit={this.handleSubmit} />

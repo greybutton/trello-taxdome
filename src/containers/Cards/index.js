@@ -8,6 +8,7 @@ import { SubmissionError } from 'redux-form';
 import * as CardActions from '../../actions/CardActions';
 import * as AppActions from '../../actions/AppActions';
 
+import Button from '../../components/common/Button';
 import CardForm from '../../components/CardForm';
 
 import Card from '../Card';
@@ -48,9 +49,7 @@ class CardsContainer extends Component {
           cards[columnId].map((card, i) => <Card key={card.id} index={i} card={card} />)}
         {isCardCreate.isCreate &&
           isCardCreate.columnId === columnId && <CardForm onSubmit={this.handleSubmit} />}
-        <button type="button" onClick={() => this.handleCreateCard(columnId)}>
-          Add a card
-        </button>
+        <Button text="Add a card" onClick={() => this.handleCreateCard(columnId)} />
       </div>
     );
   }

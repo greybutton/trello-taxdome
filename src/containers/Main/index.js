@@ -7,6 +7,7 @@ import { SubmissionError } from 'redux-form';
 import * as BoardActions from '../../actions/BoardActions';
 import * as AppActions from '../../actions/AppActions';
 
+import Button from '../../components/common/Button';
 import Boards from '../../components/Boards';
 import BoardForm from '../../components/BoardForm';
 
@@ -36,11 +37,7 @@ class Main extends Component {
       <div className="main">
         <h3>Boards</h3>
         <Boards boards={boards} deleteBoard={this.props.deleteBoard} />
-        {!isBoardCreate && (
-          <button type="button" onClick={this.handleBoardCreate}>
-            Add a board
-          </button>
-        )}
+        {!isBoardCreate && <Button text="Add a board" onClick={this.handleBoardCreate} />}
         {isBoardCreate && <BoardForm loading={this.props.loading} onSubmit={this.handleSubmit} />}
       </div>
     );

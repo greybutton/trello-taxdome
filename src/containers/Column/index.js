@@ -12,6 +12,7 @@ import * as observer from '../../observer';
 import * as ColumnActions from '../../actions/ColumnActions';
 import * as AppActions from '../../actions/AppActions';
 
+import Button from '../../components/common/Button';
 import ColumnFormEdit from '../../components/ColumnFormEdit';
 
 import Cards from '../Cards';
@@ -60,9 +61,7 @@ class Column extends Component {
           isColumnEdit.column.id === column.id && (
             <ColumnFormEdit column={column} onSubmit={this.handleSubmit} />
           )}
-        <button type="button" onClick={() => deleteColumn(column)}>
-          delete
-        </button>
+        <Button text="delete" onClick={() => deleteColumn(column)} />
         <Cards columnId={column.id} />
       </div>,
     );
