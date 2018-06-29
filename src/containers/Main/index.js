@@ -10,6 +10,8 @@ import * as AppActions from '../../actions/AppActions';
 import Boards from '../../components/Boards';
 import BoardForm from '../../components/BoardForm';
 
+import './index.css';
+
 class Main extends Component {
   componentDidMount() {
     const { getBoards } = this.props;
@@ -31,7 +33,7 @@ class Main extends Component {
     const { boards, isBoardCreate } = this.props;
 
     return (
-      <div>
+      <div className="main">
         <h3>Boards</h3>
         <Boards boards={boards} deleteBoard={this.props.deleteBoard} />
         {!isBoardCreate && (

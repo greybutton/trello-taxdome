@@ -1,0 +1,32 @@
+.boards {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 576px) {
+  .boards {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+.boards__item {
+  display: flex;
+  flex-direction: column;
+
+  background: lightgrey;
+  padding: 10px;
+  margin-bottom: 5px;
+}
+
+@media (min-width: 576px) {
+  .boards__item {
+    width: 200px;
+    margin-bottom: 0;
+    margin-right: 5px;
+  }
+}
+
+.board__link {
+  word-break: break-all;
+}
