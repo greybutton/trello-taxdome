@@ -55,7 +55,7 @@ class Column extends Component {
       <div className="column">
         {(!isColumnEdit.isEdit ||
           (isColumnEdit.isEdit && isColumnEdit.column.id !== column.id)) && (
-          <div onClick={this.handleEditColumn}>{column.title}</div>
+          <div className="column__title" onClick={this.handleEditColumn}>{column.title}</div>
         )}
         {isColumnEdit.isEdit &&
           isColumnEdit.column.id === column.id && (

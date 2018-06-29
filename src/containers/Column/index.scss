@@ -1,3 +1,9 @@
 .column {
   background: lightgrey;
+  padding: 5px;
+}
+
+.column__title {
+  padding: 5px;
+  word-break: break-all;
 }

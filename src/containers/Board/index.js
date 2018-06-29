@@ -19,6 +19,8 @@ import BoardFormEdit from '../../components/BoardFormEdit';
 
 import CardPreview from '../Card/CardPreview';
 
+import './index.css';
+
 class Board extends Component {
   componentDidMount() {
     const {
@@ -52,7 +54,7 @@ class Board extends Component {
     return (
       <div className="board">
         <Button text="Boards" onClick={() => history.goBack()} />
-        {!isBoardEdit && <div onClick={this.handleEditBoard}>{board.title}</div>}
+        {!isBoardEdit && <div className="board__title" onClick={this.handleEditBoard}>{board.title}</div>}
         {isBoardEdit && (
           <BoardFormEdit board={board} loading={loading} onSubmit={this.handleSubmit} />
         )}
