@@ -1,5 +1,11 @@
 .board {
-  margin: 20px;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100vh;
+}
+
+.board--container {
+  margin: 20px 20px 0 20px;
 }
 
 .board__title {

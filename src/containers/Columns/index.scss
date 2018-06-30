@@ -3,4 +3,7 @@
   grid-auto-flow: column;
   grid-auto-columns: 200px;
   grid-gap: 20px;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  margin: 0 20px 20px 20px;
 }

@@ -1,6 +1,8 @@
 .column {
   background: lightgrey;
   padding: 5px;
+
+  overflow: scroll;
 }
 
 .column__title {

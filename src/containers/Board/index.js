@@ -53,13 +53,15 @@ class Board extends Component {
 
     return (
       <div className="board">
-        <Button text="Boards" onClick={() => history.goBack()} />
-        {!isBoardEdit && <div className="board__title" onClick={this.handleEditBoard}>{board.title}</div>}
-        {isBoardEdit && (
-          <BoardFormEdit board={board} loading={loading} onSubmit={this.handleSubmit} />
-        )}
+        <div className="board--container">
+          <Button text="Boards" onClick={() => history.goBack()} />
+          {!isBoardEdit && <div className="board__title" onClick={this.handleEditBoard}>{board.title}</div>}
+          {isBoardEdit && (
+            <BoardFormEdit board={board} loading={loading} onSubmit={this.handleSubmit} />
+          )}
+          <CardPreview />
+        </div>
         <Columns />
-        <CardPreview />
       </div>
     );
   }
