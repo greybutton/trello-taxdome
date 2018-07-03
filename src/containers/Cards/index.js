@@ -13,6 +13,8 @@ import CardForm from '../../components/CardForm';
 
 import Card from '../Card';
 
+import './index.css';
+
 class CardsContainer extends Component {
   handleCreateCard = columnId => {
     this.props.createCardStart(columnId);
@@ -44,12 +46,14 @@ class CardsContainer extends Component {
 
     return (
       <div className="cards">
+        <div className="cards__add--container">
+        <Button text="Add a card" onClick={() => this.handleCreateCard(columnId)} />
+        {isCardCreate.isCreate &&
+          isCardCreate.columnId === columnId && <CardForm onSubmit={this.handleSubmit} />}
+        </div>
         {cards &&
           cards[columnId] &&
           cards[columnId].map((card, i) => <Card key={card.id} index={i} card={card} />)}
-        {isCardCreate.isCreate &&
-          isCardCreate.columnId === columnId && <CardForm onSubmit={this.handleSubmit} />}
-        <Button text="Add a card" onClick={() => this.handleCreateCard(columnId)} />
       </div>
     );
   }

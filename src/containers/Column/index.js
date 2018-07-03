@@ -53,15 +53,19 @@ class Column extends Component {
 
     return connectDropTarget(
       <div className="column">
-        {(!isColumnEdit.isEdit ||
-          (isColumnEdit.isEdit && isColumnEdit.column.id !== column.id)) && (
-          <div className="column__title" onClick={this.handleEditColumn}>{column.title}</div>
-        )}
-        {isColumnEdit.isEdit &&
-          isColumnEdit.column.id === column.id && (
-            <ColumnFormEdit column={column} onSubmit={this.handleSubmit} />
+        <div className="column__title--container">
+          {(!isColumnEdit.isEdit ||
+            (isColumnEdit.isEdit && isColumnEdit.column.id !== column.id)) && (
+            <div className="column__title" onClick={this.handleEditColumn}>{column.title}</div>
           )}
-        <Button text="delete" onClick={() => deleteColumn(column)} />
+          {isColumnEdit.isEdit &&
+            isColumnEdit.column.id === column.id && (
+              <ColumnFormEdit column={column} onSubmit={this.handleSubmit} />
+            )}
+          <div className="column__button--delete">
+            <Button text="delete" onClick={() => deleteColumn(column)} />
+          </div>
+        </div>
         <Cards columnId={column.id} />
       </div>,
     );
