@@ -8,13 +8,14 @@ import * as AppActions from '../../actions/AppActions';
 import Input from '../common/Input';
 
 class CardForm extends Component {
+  handleOnBlur = () => {
+    const { createCardCancel } = this.props;
+    createCardCancel();
+  };
+
   renderField = ({ input, type, placeholder }) => (
     <Input {...input} id={input.name} placeholder={placeholder} type={type} autoFocus />
   );
-
-  handleOnBlur = () => {
-    this.props.createCardCancel();
-  };
 
   render() {
     const { handleSubmit } = this.props;
@@ -33,17 +34,12 @@ class CardForm extends Component {
   }
 }
 
-CardForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-};
-
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      ...AppActions,
-    },
-    dispatch,
-  );
+const mapDispatchToProps = dispatch => bindActionCreators(
+  {
+    ...AppActions,
+  },
+  dispatch,
+);
 
 export default reduxForm({ form: 'card' })(
   connect(
@@ -51,3 +47,8 @@ export default reduxForm({ form: 'card' })(
     mapDispatchToProps,
   )(CardForm),
 );
+
+CardForm.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  createCardCancel: PropTypes.func.isRequired,
+};

@@ -8,28 +8,15 @@ import * as AppActions from '../../actions/AppActions';
 
 import Input from '../common/Input';
 
-class BoardFormEdit extends Component {
-  componentDidMount() {
-    this.props.initialize(this.props.board);
-  }
-
+class BoardForm extends Component {
   renderField = ({ input, type, placeholder }) => (
     <Input {...input} id={input.name} placeholder={placeholder} type={type} autoFocus />
   );
 
-  handleOnBlur = (e, newValue) => {
-    const {
-      board: { title },
-    } = this.props;
-    if (newValue === title) {
-      this.props.updateBoardCancel();
-    } else {
-      this.props.handleSubmit();
-    }
-  };
-
   render() {
-    const { handleSubmit, loading } = this.props;
+    const {
+      handleSubmit, loading, pristine, submitting, createBoardCancel,
+    } = this.props;
 
     return (
       <div>
@@ -42,8 +29,13 @@ class BoardFormEdit extends Component {
               type="text"
               component={this.renderField}
               placeholder="Add board title"
-              onBlur={this.handleOnBlur}
+              onBlur={() => createBoardCancel()}
             />
+            <div>
+              <button type="submit" disabled={pristine || submitting}>
+                Create board
+              </button>
+            </div>
           </form>
         )}
       </div>
@@ -51,22 +43,24 @@ class BoardFormEdit extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      ...AppActions,
-    },
-    dispatch,
-  );
+const mapDispatchToProps = dispatch => bindActionCreators(
+  {
+    ...AppActions,
+  },
+  dispatch,
+);
 
-export default reduxForm({ form: 'boardEdit' })(
+export default reduxForm({ form: 'board' })(
   connect(
     null,
     mapDispatchToProps,
-  )(BoardFormEdit),
+  )(BoardForm),
 );
 
-BoardFormEdit.propTypes = {
+BoardForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
+  pristine: PropTypes.bool.isRequired,
+  submitting: PropTypes.bool.isRequired,
+  createBoardCancel: PropTypes.func.isRequired,
 };

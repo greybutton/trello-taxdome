@@ -172,7 +172,7 @@ export const movingCard = (column, card) => {
   updateCard(newCard);
 };
 
-export const sortingCard = (dragIndex, hoverIndex, dragCard, hoverCard) => {
+export const sortingCard = (dragIndex, hoverIndex, dragCard) => {
   const { columnId } = dragCard;
   const cards = JSON.parse(localStorage.getItem(cardsUrl));
   const columnCards = cards.filter(card => card.columnId === columnId);
@@ -216,4 +216,3 @@ export const sortingCardColumn = (dragIndex, hoverIndex, dragCard, hoverCard) =>
   const value = JSON.stringify([...newCards, ...otherCards]);
   localStorage.setItem(cardsUrl, value);
 };
-

@@ -10,16 +10,18 @@ import Input from '../common/Input';
 
 class CardFormEdit extends Component {
   componentDidMount() {
-    this.props.initialize(this.props.card);
+    const { initialize, card } = this.props;
+    initialize(card);
   }
+
+  handleOnBlur = () => {
+    const { updateCardCancel } = this.props;
+    updateCardCancel();
+  };
 
   renderField = ({ input, type, placeholder }) => (
     <Input {...input} id={input.name} placeholder={placeholder} type={type} autoFocus />
   );
-
-  handleOnBlur = () => {
-    this.props.updateCardCancel();
-  };
 
   render() {
     const { handleSubmit } = this.props;
@@ -38,13 +40,12 @@ class CardFormEdit extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      ...AppActions,
-    },
-    dispatch,
-  );
+const mapDispatchToProps = dispatch => bindActionCreators(
+  {
+    ...AppActions,
+  },
+  dispatch,
+);
 
 export default reduxForm({ form: 'cardEdit' })(
   connect(
@@ -56,4 +57,6 @@ export default reduxForm({ form: 'cardEdit' })(
 CardFormEdit.propTypes = {
   card: PropTypes.object,
   handleSubmit: PropTypes.func.isRequired,
+  updateCardCancel: PropTypes.func.isRequired,
+  initialize: PropTypes.func.isRequired,
 };

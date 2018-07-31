@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { SubmissionError } from 'redux-form';
 import { DragSource, DropTarget } from 'react-dnd';
 import classNames from 'classnames';
-import { ItemTypes } from '../../constants/dnd';
+import ItemTypes from '../../constants/dnd';
 
 import * as observer from '../../observer';
 

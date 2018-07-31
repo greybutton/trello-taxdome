@@ -1,4 +1,4 @@
-import { store } from '.';
+import store from './store';
 import { movingCard, sortingCard, sortingCardColumn } from './api';
 import { getCards } from './actions/CardActions';
 

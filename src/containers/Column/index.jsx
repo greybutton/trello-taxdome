@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { SubmissionError } from 'redux-form';
 import { DropTarget } from 'react-dnd';
-import { ItemTypes } from '../../constants/dnd';
+import ItemTypes from '../../constants/dnd';
 
 import * as observer from '../../observer';
 

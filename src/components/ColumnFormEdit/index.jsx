@@ -10,23 +10,26 @@ import Input from '../common/Input';
 
 class ColumnFormEdit extends Component {
   componentDidMount() {
-    this.props.initialize(this.props.column);
+    const { initialize, column } = this.props;
+    initialize(column);
   }
-
-  renderField = ({ input, type, placeholder }) => (
-    <Input {...input} id={input.name} placeholder={placeholder} type={type} autoFocus />
-  );
 
   handleOnBlur = (e, newValue) => {
     const {
       column: { title },
+      updateColumnCancel,
+      handleSubmit,
     } = this.props;
     if (newValue === title) {
-      this.props.updateColumnCancel();
+      updateColumnCancel();
     } else {
-      this.props.handleSubmit();
+      handleSubmit();
     }
   };
+
+  renderField = ({ input, type, placeholder }) => (
+    <Input {...input} id={input.name} placeholder={placeholder} type={type} autoFocus />
+  );
 
   render() {
     const { handleSubmit } = this.props;
@@ -45,13 +48,12 @@ class ColumnFormEdit extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      ...AppActions,
-    },
-    dispatch,
-  );
+const mapDispatchToProps = dispatch => bindActionCreators(
+  {
+    ...AppActions,
+  },
+  dispatch,
+);
 
 export default reduxForm({ form: 'columnEdit' })(
   connect(
@@ -63,4 +65,6 @@ export default reduxForm({ form: 'columnEdit' })(
 ColumnFormEdit.propTypes = {
   column: PropTypes.object,
   handleSubmit: PropTypes.func.isRequired,
+  updateColumnCancel: PropTypes.func.isRequired,
+  initialize: PropTypes.func.isRequired,
 };

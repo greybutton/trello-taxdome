@@ -1,8 +1,14 @@
+[![Build Status][build-badge]][build]
+
+[build-badge]: https://img.shields.io/travis/greybutton/trello-taxdome.svg?style=flat-square
+[build]: https://travis-ci.org/greybutton/trello-taxdome
+
 Цель: Нужно написать сервис для шаринга kanban досок (аналог trello.com)
 
-Задание: 
+Задание:
+
 * одностраничное приложение без бекенда
-* на главной 
+* на главной
   * создать доску -> отдельную страницу доски с уникальной ссылкой (/bords/GhK4L6l0kq)
   * любой у кого есть эта ссылка
     * добавлять колонку в доску

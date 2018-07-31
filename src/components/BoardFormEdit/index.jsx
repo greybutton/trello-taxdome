@@ -8,13 +8,31 @@ import * as AppActions from '../../actions/AppActions';
 
 import Input from '../common/Input';
 
-class BoardForm extends Component {
+class BoardFormEdit extends Component {
+  componentDidMount() {
+    const { initialize, board } = this.props;
+    initialize(board);
+  }
+
+  handleOnBlur = (e, newValue) => {
+    const {
+      board: { title },
+      updateBoardCancel,
+      handleSubmit,
+    } = this.props;
+    if (newValue === title) {
+      updateBoardCancel();
+    } else {
+      handleSubmit();
+    }
+  };
+
   renderField = ({ input, type, placeholder }) => (
     <Input {...input} id={input.name} placeholder={placeholder} type={type} autoFocus />
   );
 
   render() {
-    const { handleSubmit, loading, pristine, submitting } = this.props;
+    const { handleSubmit, loading } = this.props;
 
     return (
       <div>
@@ -27,13 +45,8 @@ class BoardForm extends Component {
               type="text"
               component={this.renderField}
               placeholder="Add board title"
-              onBlur={() => this.props.createBoardCancel()}
+              onBlur={this.handleOnBlur}
             />
-            <div>
-              <button type="submit" disabled={pristine || submitting}>
-                Create board
-              </button>
-            </div>
           </form>
         )}
       </div>
@@ -41,24 +54,24 @@ class BoardForm extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      ...AppActions,
-    },
-    dispatch,
-  );
+const mapDispatchToProps = dispatch => bindActionCreators(
+  {
+    ...AppActions,
+  },
+  dispatch,
+);
 
-export default reduxForm({ form: 'board' })(
+export default reduxForm({ form: 'boardEdit' })(
   connect(
     null,
     mapDispatchToProps,
-  )(BoardForm),
+  )(BoardFormEdit),
 );
 
-BoardForm.propTypes = {
+BoardFormEdit.propTypes = {
+  board: PropTypes.object,
   handleSubmit: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
-  pristine: PropTypes.bool.isRequired,
-  submitting: PropTypes.bool.isRequired,
+  updateBoardCancel: PropTypes.func.isRequired,
+  initialize: PropTypes.func.isRequired,
 };
